@@ -1,0 +1,12 @@
+<div class="toolbar" *ngIf="appConfig.showLayout === 'true'">
+    <app-toolbar></app-toolbar>
+</div>
+<div class="sidebar" *ngIf="appConfig.showLayout === 'true'">
+    <app-sidebar></app-sidebar>
+</div>
+<div class="main">
+    <router-outlet></router-outlet>
+    <!-- <div class="footer" *ngIf="appConfig.showLayout === 'true'">
+        <p>Bản quyền thuộc về Công ty cổ phần Liên Việt Tech</p>
+    </div> -->
+</div>

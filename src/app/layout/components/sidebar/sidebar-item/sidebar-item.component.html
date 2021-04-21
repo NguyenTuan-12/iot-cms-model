@@ -1,0 +1,29 @@
+<ul class="submenu-list" *ngIf="item && item.children && item.children.length > 0">
+    <li class="submenu-item" *ngFor="let item of item.children">
+        <a class="submenu-link" *ngIf="item.type === 'item'" [routerLink]="[item.url]"
+            [routerLinkActive]="['active-exac']" [class.active]="_router.url.indexOf(item.url) === 0">
+            <span class="pre-icon">
+                <i class="fa fa-circle"></i>
+            </span>
+            <span class="submenu-name">
+                {{item.translate | translate}}
+            </span>
+        </a>
+        <a class="submenu-link" *ngIf="item.type === 'group'" [class.active]="_router.url.indexOf(item.url) === 0"
+            data-toggle="collapse" [attr.data-target]="'#' + item.id"
+            [attr.aria-expanded]="_router.url.indexOf(item.url) === 0 ? 'true' : 'false'">
+            <span class="pre-icon">
+                <i class="fa fa-circle"></i>
+            </span>
+            <span class="submenu-name">
+                {{item.translate | translate}}
+            </span>
+            <span class="sub-icon">
+            </span>
+        </a>
+        <div [id]="item.id" class="collapse sub-collapse" [class.show]="_router.url.indexOf(item.url) === 0"
+            *ngIf="item.type === 'group'">
+            <app-sidebar-item [item]="item"></app-sidebar-item>
+        </div>
+    </li>
+</ul>

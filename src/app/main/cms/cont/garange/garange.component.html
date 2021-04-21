@@ -1,0 +1,110 @@
+<div class="app-main-content">
+  <div class="app-container">
+    <div class="app-toolbar">
+      <div class="app-breadcrum">
+        <a class="breadcrum-text" href="/cms/dashboard">
+          Trang chủ
+        </a>
+        <span class="breadcrum-icon"><i class="fa fa-caret-right"></i></span>
+        <a class="breadcrum-text">
+          Quản lý liên hệ
+        </a>
+        <span class="breadcrum-icon"><i class="fa fa-caret-right"></i></span>
+        <a class="breadcrum-text" href="/cms/cont/garage">
+          Khách hàng garage
+        </a>
+      </div>
+      <div class="app-title">
+      </div>
+      <div class="card card-content">
+        <div class="row full-width">
+          <div class="app-title-design col-sm-6 p-n">
+            Khách hàng garage
+          </div>
+        </div>
+
+        <div class="card card-content-design">
+          <div class="main-toolbar">
+            <div class="row">
+              <div class="col-sm-3 p-n custom-btn-toolbar">
+                <!-- Họ tên email -->
+                <div class="form-group full-width">
+                  <div class="e-float-input m-t-0">
+                    <input type="text" id="firstname" name="firstname" [(ngModel)]="search.text"
+                      [ngModelOptions]="{ standalone: true }" (keypress)="searchListEnter($event)"
+                      placeholder="Tìm kiếm theo Tên/Số điện thoại..." />
+                  </div>
+                </div>
+                <!-- Button Tìm kiếm -->
+              </div>
+              <div class="col-sm-2">
+                <div class="form-group">
+                  <div class="e-float-input m-t-0 bg overwrite-bg">
+                    <button class="btn btn-search" (click)="state.skip=0;getListData()">
+                      Tìm kiếm
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="app-content list">
+      <div class="card card-content">
+        <div class="card-main-content">
+          <div class="list-grid">
+            <ejs-grid #overviewgrid id="overviewgrid" [dataSource]="data | async" rowHeight="45" headerHeight="52"
+              [allowPaging]="true" [pageSettings]="configs.pageSettings" [enableHover]="true"
+              [allowSorting]="false" allowResizing="true" height="450"
+              [height]="configs.height()" [locale]="configs.currentLang" [allowSelection]="true"
+              [showColumnChooser]="true" [selectionSettings]="configs.selectionSettingsNotCheck"
+              [allowFiltering]="false" [filterSettings]="configs.filterSettings" [editSettings]="configs.editSettings"
+              (dataStateChange)="dataStateChange($event)" [allowTextWrap]="true"
+              [textWrapSettings]="configs.wrapSettings">
+              <e-columns>
+                <e-column field="_id" [showInColumnChooser]="false" [visible]="false" headerText="ID" width="130"
+                  [isPrimaryKey]="true" [allowEditing]="false"></e-column>
+                <e-column headerTextAlign="Center" textAlign="Center" headerText="STT" [allowEditing]="false"
+                  width="80">
+                  <ng-template #template let-data>
+                    <span>{{ formatStt(data.index) }}</span>
+                  </ng-template>
+                </e-column>
+                <e-column field="fullname" textAlign="Left" headerTextAlign="Center" headerText="Họ và tên" width="130">
+                </e-column>
+                <e-column field="phone" textAlign="Left" headerTextAlign="Center" headerText="Số điện thoại"
+                  width="130">
+                </e-column>
+                <e-column field="note" textAlign="Left" headerTextAlign="Center" headerText="Ghi chú" width="200">
+                </e-column>
+                <e-column field="dateCreated" textAlign="Left" headerTextAlign="Center" headerText="Ngày gửi thông tin"
+                  width="130">
+                  <ng-template #template let-data>
+                    {{data.dateCreated | date: 'dd/MM/yyyy HH:mm'}}
+                  </ng-template>
+                </e-column>
+              </e-columns>
+            </ejs-grid>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM DELETE MODAL-->
+<macca-confirm-modal id="confirm-delete-modal">
+  <div class="row full-width macca-modal-header">
+    Bạn có chắc chắn muốn xóa bản ghi?
+  </div>
+  <div class="row full-width macca-modal-footer text-center">
+    <button class="btn btn-primary" (click)="confirmDelete('ok')">
+      Đồng ý
+    </button>
+    <button class="btn btn-default" (click)="confirmDelete('cancel')">
+      Hủy
+    </button>
+  </div>
+</macca-confirm-modal>

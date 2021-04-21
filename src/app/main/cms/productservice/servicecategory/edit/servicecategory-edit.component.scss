@@ -1,0 +1,58 @@
+app-servicecategory-edit{
+    .form-control{
+        height: 32px;
+    }
+    button.btn.btn-outline.btn_add {
+      color: red;
+    }
+    .form-group input.ng-invalid.ng-touched {
+      border: 1px solid red;
+    }
+    .e-control.ng-invalid.ng-touched input {
+      border: none !important;
+      border-radius: 0 !important;
+      border-right: none !important;
+    }
+    td.e-rowcell {
+      height: 40px;
+    }
+    .placeholder-dropd span input::placeholder{
+      opacity: 0.5 !important;
+      font-style: italic;
+    }
+    .padding-left-none {
+      padding-left: 0 !important;
+    }
+    .e-control.ng-invalid.ng-touched input {
+      border: none !important;
+      border-radius: 0 !important;
+      border-right: none !important;
+    }
+}
+macca-modal#open-add-function{
+  .checkbox-width {
+    text-align: left;
+    padding-left: 180px;
+  }
+  .checkbox-width ejs-checkbox label span.e-label{
+    width: 200px;
+  }
+  .flex-checkbox{
+    display: flex;
+    justify-content: space-around;
+  }
+  .close-btn{
+    display: flex;
+    padding: 20px 5px 0 0;
+    justify-content: flex-end;
+    button {
+      width: 130px;
+    }
+  }
+}
+macca.modal#open-add-account {
+  .close-btn.col-sm-12{
+    display: flex;
+    justify-content: flex-end;
+  }
+}

@@ -1,0 +1,12 @@
+// Import app.theme.scss
+@import "app/app.theme";
+@import "assets/css/style-bootstrap.css";
+@import "assets/css/style.css";
+@import "assets/css/style-material.css";
+@import "assets/css/style-default.css";
+// @import "assets/css/syncfusion/bootstrap4.scss";
+
+@font-face {
+    font-family: macca-font;
+    src: url(assets/fonts/Roboto-Regular.ttf) format("opentype");
+  }

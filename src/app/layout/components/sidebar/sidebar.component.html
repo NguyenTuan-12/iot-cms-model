@@ -1,0 +1,49 @@
+<div class="btn-toggle" id="btn" [ngClass]="addButtonClass()">
+    <span class="fa fa-bars" (click)="click()"></span>
+  </div>
+  <div class="app-sidebar-menu" [ngClass]="addSidebarClass()">
+    <ul class="app-sidebar">
+      <li class="app-sidebar-item" *ngFor="let item of navigation">
+        <a
+          class="app-sidebar-main-item"
+          [class.active]="_router.url.indexOf(item.url) === 0"
+          *ngIf="item.type === 'item'"
+          [routerLink]="[item.url]"
+        >
+          <span class="sidebar-icon">
+            <i class="fa fa-{{ item.icon }}"></i>
+          </span>
+          <span class="sidebar-name">
+            {{ item.translate | translate }}
+          </span>
+        </a>
+        <a
+          class="app-sidebar-main-item"
+          [class.active]="_router.url.indexOf(item.url) === 0"
+          *ngIf="item.type === 'group'"
+          data-toggle="collapse"
+          [attr.data-target]="'#' + item.id"
+          [attr.aria-expanded]="
+            _router.url.indexOf(item.url) === 0 ? 'true' : 'false'
+          "
+        >
+          <span class="sidebar-icon">
+            <i class="fa fa-{{ item.icon }}"></i>
+          </span>
+          <span class="sidebar-name">
+            {{ item.translate | translate }}
+          </span>
+          <span class="submenu-icon"> </span>
+        </a>
+        <div
+          [id]="item.id"
+          class="collapse main-collapse"
+          [class.show]="_router.url.indexOf(item.url) === 0"
+          *ngIf="item.type === 'group'"
+        >
+          <app-sidebar-item [item]="item"></app-sidebar-item>
+        </div>
+      </li>
+    </ul>
+  </div>
+  

@@ -1,0 +1,37 @@
+<div id="container">
+  <div class="overlay-left"></div>
+  <div class="overlay-right"></div>
+  <div id="grid" class="image-cropper">
+    <div
+      class="image-cropper-ngfor"
+      *ngFor="let url of imageUrls; let i = index"
+      style="position: relative;"
+    >
+      <a [href]="url" target="_blank" style="width:100%; height: 100%">
+        <img
+          [@move]="state"
+          (@move.done)="onFinish($event)"
+          (@move.start)="onStart($event)"
+          [src]="url"
+          alt=""
+        />
+      </a>
+      <span
+        *ngIf="disableBtn"
+        style="
+          position: absolute;
+          top: 3px;
+          right: 5px;
+          color: black;
+          cursor: pointer;
+        "
+        (click)="removeImg(i)"
+        ><i class="fa fa-remove"></i
+      ></span>
+    </div>
+  </div>
+  <div *ngIf="imageUrls && imageUrls.length > 2">
+    <a id="slider-buttons-left" (click)="moveLeft()">&#10094;</a>
+    <a id="slider-buttons-right" [class.position-right]="flagMoveBtn" (click)="moveRight()">&#10095;</a>
+  </div>
+</div>

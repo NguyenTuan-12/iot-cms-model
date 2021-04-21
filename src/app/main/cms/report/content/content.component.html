@@ -1,0 +1,58 @@
+<div class="app-main-content">
+  <div class="app-container">
+    <div class="app-toolbar">
+      <div class="app-breadcrum">
+        <a class="breadcrum-text" href="/cms/dashboard">
+          Trang chủ
+        </a>
+        <span class="breadcrum-icon"><i class="fa fa-caret-right"></i></span>
+        <a class="breadcrum-text">
+          Báo cáo hệ thống
+        </a>
+        <span class="breadcrum-icon"><i class="fa fa-caret-right"></i></span>
+        <a class="breadcrum-text" href="/cms/report/content">
+         Top Nội dung
+        </a>
+      </div>
+      <div class="app-title">
+      </div>
+      <div class="card card-content">
+        <div class="row full-width">
+          <div class="app-title-design col-sm-6 p-n">
+            Top Nội dung
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="app-content">
+      <div class="card card-content">
+        <div class="card-main-content">
+          <div class="list-grid">
+            <ejs-grid #overviewgrid id="overviewgrid" [dataSource]="data" rowHeight="45" headerHeight="52"
+              [allowPaging]="true" [pageSettings]="configs.pageSettings" [enableHover]="true"
+              [allowSorting]="false" allowResizing="true" height="450"
+              [height]="configs.height()" [locale]="configs.currentLang" [allowSelection]="true"
+              [showColumnChooser]="true" [selectionSettings]="configs.selectionSettingsNotCheck"
+              [allowFiltering]="false" [filterSettings]="configs.filterSettings" [editSettings]="configs.editSettings"
+               [allowTextWrap]="true" [textWrapSettings]="configs.wrapSettings">
+              <e-columns>
+                <e-column field="_id" [showInColumnChooser]="false" [visible]="false" headerText="ID" width="130"
+                  [isPrimaryKey]="true" [allowEditing]="false"></e-column>
+                <e-column headerTextAlign="Center" textAlign="Center" headerText="STT" [allowEditing]="false"
+                  width="40">
+                  <ng-template #template let-data>
+                    <span>{{ formatStt(data.index) }}</span>
+                  </ng-template>
+                </e-column>
+                <e-column field="_id" textAlign="Left" headerTextAlign="Center" headerText="Nội dung" width="250">
+                </e-column>
+                <e-column field="count" textAlign="Center" headerTextAlign="Center" headerText="Lượt xem" width="150">
+                </e-column>
+              </e-columns>
+            </ejs-grid>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

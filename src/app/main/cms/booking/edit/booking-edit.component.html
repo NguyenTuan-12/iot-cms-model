@@ -1,0 +1,178 @@
+<div class="app-main-content">
+  <div class="app-container">
+    <div class="app-toolbar">
+      <div class="app-breadcrum">
+        <a class="breadcrum-text" href="/cms/dashboard">
+          Trang chủ
+        </a>
+        <span class="breadcrum-icon"><i class="fa fa-caret-right"></i></span>
+        <a class="breadcrum-text" href="/cms/booking">
+          Quản lý Đặt lịch
+        </a>
+      </div>
+      <div class="app-title" *ngIf="flagState == 'new'">
+        Thêm mới Đặt lịch
+      </div>
+      <div class="app-title" *ngIf="flagState == 'edit'">
+        Sửa Đặt lịch
+      </div>
+      <div class="app-title" *ngIf="flagState == 'view'">
+        Xem Đặt lịch
+      </div>
+    </div>
+    <div class="app-content ">
+      <div class="card card-content">
+        <div class="card-main-content">
+          <div class="row full-width macca-modal-footer text-center">
+            <div class="col-sm-12 text-left code">
+              <h3 class="title">Mã số lịch đặt</h3>
+              <p>{{modelView.bookingCode}}</p>
+            </div>
+          </div>
+          <hr />
+          <div class="row full-width macca-modal-footer text-center">
+            <div class="col-sm-12 info text-left">
+              <h3 class="title">Thông tin lịch đặt</h3>
+              <div class="hr"></div>
+            </div>
+            <div class="col-sm-12 text-left mt-2">
+              <span class="bold">Ngày đặt:</span>
+              <span class="span-info">{{modelView.dateBooking}}</span>
+            </div>
+            <div class="col-sm-12 text-left  mt-2">
+              <span class="bold">Ngày tạo:</span>
+              <span class="span-info">{{modelView.dateCreated}}</span>
+            </div>
+            <div class="col-sm-12 text-left  mt-2">
+              <span class="bold">Ngày cập nhật:</span>
+              <span class="span-info">{{modelView.dateUpdated}}</span>
+            </div>
+          </div>
+          <hr />
+
+          <div class="row full-width macca-modal-footer text-center mt-3">
+            <div class="col-sm-12 info text-left">
+              <h3 class="title">Thông tin khách hàng</h3>
+              <div class="hr"></div>
+            </div>
+            <div class="col-sm-12 text-left mt-2">
+              <span class="bold">Họ và tên:</span>
+              <span class="span-info">{{modelView.customerName}}</span>
+            </div>
+            <div class="col-sm-12 text-left  mt-2">
+              <span class="bold">Số điện thoại:</span>
+              <span class="span-info">{{modelView.customerPhone}}</span>
+            </div>
+            <div class="col-sm-12 text-left  mt-2">
+              <span class="bold">Email:</span>
+              <span class="span-info">{{modelView.customerEmail}}</span>
+            </div>
+            <div class="col-sm-12 text-left  mt-2">
+              <span class="bold">Thông tin xe (Biển số, Hãng/Dòng/Đời xe...):</span>
+              <span class="span-info">{{modelView.customerAddress}}</span>
+            </div>
+          </div>
+          <hr />
+
+          <div class="row">
+            <div class="col-sm-8">
+              <h3 class="title">Thông tin dịch vụ</h3>
+            </div>
+            <div class="col-sm-8">
+              <div class="list-grid">
+                <ejs-grid #overviewgrid id="overviewgrid" [dataSource]="modelView.services" rowHeight="45"
+                  headerHeight="52" [allowPaging]="true" [pageSettings]="configs.pageSettings" [enableHover]="true"
+                  [allowSorting]="false" allowResizing="true" height="450" [height]="configs.height()"
+                  [locale]="configs.currentLang" [allowSelection]="true" [showColumnChooser]="true"
+                  [selectionSettings]="configs.selectionSettingsNotCheck" [allowFiltering]="false"
+                  [filterSettings]="configs.filterSettings" [editSettings]="configs.editSettings" [allowTextWrap]="true"
+                  [textWrapSettings]="configs.wrapSettings">
+                  <e-columns>
+                    <e-column field="_id" [showInColumnChooser]="false" [visible]="false" headerText="ID" width="130"
+                      [isPrimaryKey]="true" [allowEditing]="false"></e-column>
+                    <e-column headerTextAlign="Center" textAlign="Center" headerText="STT" [allowEditing]="false"
+                      width="40">
+                      <ng-template #template let-data>
+                        <span>{{ formatStt(data.index) }}</span>
+                      </ng-template>
+                    </e-column>
+                    <e-column field="serviceName" textAlign="Left" headerTextAlign="Center" headerText="Tên dịch vụ"
+                      width="140">
+                    </e-column>
+                    <e-column field="price" textAlign="Left" headerTextAlign="Center" headerText="Giá" width="80">
+                      <ng-template let-data #template>
+                        <span *ngIf='data && data.price; else noPrice'>{{data.price | number}}đ</span>
+                        <ng-template #noPrice>
+                          <span>Giá liên hệ</span>
+                        </ng-template>
+                      </ng-template>
+                    </e-column>
+                  </e-columns>
+                </ejs-grid>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 text-center mt-3">
+              <button class="back-btn" (click)="backToList()">Quay lại</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- CONFIRM DELETE MODAL-->
+<macca-confirm-modal id="view-booking-modal">
+  <div class="row">
+    <div class="col-sm-2">
+
+    </div>
+    <div class="col-sm-10">
+      <div class="row full-width macca-modal-footer text-center">
+        <div class="col-sm-12 text-left">
+          <h3 class="thanks">Cám ơn anh/chị BTEK đã nhận được lịch đặt</h3>
+        </div>
+        <br>
+        <hr>
+        <br>
+      </div>
+      <div class="row full-width macca-modal-footer text-center">
+        <div class="col-sm-12 text-left code">
+          <label for="">Mã số lịch đặt</label>
+          <p>{{modelView.bookingCode}}</p>
+        </div>
+      </div>
+      <div class="row full-width macca-modal-footer text-center">
+        <div class="col-sm-12 info">
+          <h3>Thông tin lịch đặt</h3>
+          <div class="hr"></div>
+        </div>
+        <div class="col-sm-6">
+          <span>Ngày:</span>
+          <span>{{modelView.dateCreated}}:</span>
+        </div>
+        <div class="col-sm-6">
+          <span>Giờ:</span>
+          <span>{{modelView.dateCreated}}:</span>
+        </div>
+        <div class="col-sm-12">
+          <hr>
+        </div>
+        <div class="col-sm-6">
+          <span>Cửa hàng:</span>
+          <span>{{modelView.dateCreated}}:</span>
+        </div>
+        <div class="col-sm-6">
+          <span>Giờ:</span>
+          <span>{{modelView.dateCreated}}:</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row full-width macca-modal-footer text-center">
+    <button class="btn btn-primary" (click)="backToList()">
+      Quay lại
+    </button>
+  </div>
+</macca-confirm-modal>

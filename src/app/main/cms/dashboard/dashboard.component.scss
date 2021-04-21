@@ -1,0 +1,232 @@
+app-cms-dashboard {
+  .app-container {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.08);
+
+    .dash-header {
+      height: 50px;
+      padding: 10px 25px;
+      font-size: 20px;
+      border-bottom: 1px solid #eaebec;
+
+      span {
+        color: #000000;
+      }
+
+      i {
+        margin-right: 8px;
+        color: #eccb5d;
+        cursor: pointer;
+      }
+    }
+
+    .dash-content {
+      padding: 25px;
+    }
+    .p-r-10 {
+      padding-right: 10px !important;
+    }
+
+    .card-content {
+      box-shadow: none !important;
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  .widget-1 {
+    min-height: 200px;
+    .card-content {
+      height: 100%;
+    }
+    .col-sm-4,
+    .col-sm-6,
+    .col-sm-9,
+    .col-sm-3,
+    .col-sm-8 {
+      padding: 0 5px !important;
+      b {
+        font-size: 12px;
+      }
+      select {
+        border: none;
+        width: inherit;
+        font-size: 12px;
+        text-align-last: right;
+      }
+    }
+    .model-total {
+      position: absolute;
+      top: 25%;
+      z-index: 2;
+      width: 100%;
+      text-align: center;
+      .model-now {
+        font-size: 60px;
+        font-weight: bold;
+        display: inline-block;
+      }
+      .model-increase {
+        display: inline-block;
+        margin-left: 8px;
+        vertical-align: middle;
+        p {
+          font-size: 11px;
+          margin-bottom: 0;
+          width: 100%;
+          text-align: center;
+        }
+      }
+    }
+
+    highcharts-chart {
+      width: 100%;
+      display: block;
+      margin: auto;
+      float: left;
+    }
+  }
+
+  .widget-summary {
+    .col-title {
+      font-size: 13px;
+      vertical-align: middle;
+      width: 70px;
+      padding: 12px 5px;
+    }
+    .col-sm-4 {
+      padding: 0 2px !important;
+      p {
+        margin-bottom: 0;
+        font-size: 11px;
+      }
+    }
+  }
+
+  .widget-member {
+    .model-now {
+      color: #00acf0;
+    }
+  }
+
+  .widget-council {
+    .model-total {
+      .model-now {
+        color: #ffbf36;
+      }
+    }
+  }
+
+  .widget-club {
+    .model-total {
+      .model-now {
+        color: #22af47;
+      }
+    }
+  }
+
+  .widget-province,
+  .widget-summary {
+    #item-previous:hover {
+      opacity: 1 !important;
+    }
+    #item-next:hover {
+      opacity: 1 !important;
+    }
+  }
+
+  .m-b-5 {
+    margin-bottom: 5px !important;
+  }
+
+  .m-b-8 {
+    margin-bottom: 8px !important;
+  }
+
+  .widget-color-blue {
+    color: #00acf0;
+  }
+
+  .widget-color-green {
+    color: green;
+  }
+
+  .widget-color-orange {
+    color: orange;
+  }
+
+  .widget-color-red {
+    color: red;
+  }
+  .select:focus,
+  .select:active,
+  .select:hover {
+    outline: none !important;
+  }
+  @media only screen and (min-width: 1000px) and (max-width: 1700px) {
+    .app-container {
+      min-height: 590px;
+      margin: 25px !important;
+      padding: 0 !important;
+
+      .dash-content {
+        min-height: 540px;
+      }
+    }
+  }
+
+  @media only screen and (min-width: 1700px) {
+    .app-container {
+      min-height: 798px;
+      margin: 25px !important;
+      padding: 0 !important;
+
+      .dash-content {
+        min-height: 748px;
+      }
+    }
+  }
+  .summary-style {
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    height: 100px;
+    text-align: center;
+    padding: 0 !important;
+    position: relative;
+  }
+  .text-news {
+    font-size: 25px !important;
+    color: red;
+    padding-top: 13px;
+  }
+  .text-news-content {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border-left: 1px solid rgba(0, 0, 0, 0.125);
+    border-top: 1px solid rgba(0, 0, 0, 0.125);
+    font-size: 12px;
+  }
+  .col-sm-7.align-css {
+    display: flex;
+    align-items: center;
+  }
+
+  .widget-1 .col-sm-8.css-border select {
+    text-align-last: left;
+  width: auto;
+  }
+}
+
+macca-confirm-modal
+  .macca-modal
+  .macca-modal-body
+  .macca-modal-header.css-header {
+  padding-bottom: 5px;
+  border-bottom: 1px solid black;
+}
+
+.col-sm-6.text-left.css-boder {
+  border-right: 1px solid black;
+}

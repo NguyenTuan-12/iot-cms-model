@@ -1,0 +1,152 @@
+<div class="app-main-content">
+  <div class="app-container">
+    <form name="editForm" [formGroup]="editForm" novalidate>
+
+      <div class="app-toolbar">
+        <div class="app-breadcrum">
+          <a class="breadcrum-text" href="/cms/dashboard">
+            Trang chủ
+          </a>
+          <span class="breadcrum-icon"><i class="fa fa-caret-right"></i></span>
+          <a class="breadcrum-text">
+            Quản trị hệ thống
+          </a>
+          <span class="breadcrum-icon"><i class="fa fa-caret-right"></i></span>
+          <a class="breadcrum-text" href="/cms/system/servicegarage">
+            Quản lý dịch vụ Garage
+          </a>
+        </div>
+        <div class="app-title">
+        </div>
+        <div class="card card-content">
+          <div class="row full-width">
+            <div class="app-title-design col-sm-6 p-n">
+              Quản lý dịch vụ Garage
+            </div>
+          </div>
+
+          <div class="card card-content-design">
+            <div class="main-toolbar">
+              <div class="row">
+                <div class="col-sm-4 p-n custom-btn-toolbar">
+                  <div class="form-group full-width">
+                    <div class="e-float-input m-t-0">
+                      <ejs-dropdownlist id="garage_id" formControlName="garage_id" [(ngModel)]="model.garage_id"
+                        [dataSource]="lstGarages" (ngModelChange)="changeGarage(model.garage_id)" [fields]="fields" [allowFiltering]="true"
+                        (filtering)='onFilteringOtherList($event,lstGarages)' placeholder="Chọn garage...">
+                      </ejs-dropdownlist>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="app-content list">
+        <div class="card card-content">
+          <div class="card-main-content">
+
+            <div class="row headertable" style="margin-top: 20px !important;">
+              <div class="col-sm-2">
+                <label class="e-float-text-value required" for="value">STT</label>
+              </div>
+              <div class="col-sm-4">
+                <label class="e-float-text-value required" for="value">Tên dịch vụ</label>
+              </div>
+            </div>
+            <div formArrayName="serviceForm" *ngFor="let service of model.lstServices; let i = index">
+              <div class="row service" [formGroupName]="i">
+                <div class="col-sm-2 service1">
+                  <div class="form-group">
+                    <div class="e-float-input mt-0">
+                      <label class="e-float-text-value required" for="value">{{i+1}}</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-10 service1">
+                  <div class="form-group">
+                    <div class="e-float-input  mt-0">
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <ejs-dropdownlist id='serviceName' [dataSource]='lstCategoryService' [fields]='fields'
+                            [showClearButton]="true" [(ngModel)]="service.serviceId"
+                            (change)="changeService(service.serviceId, $event)" formControlName="serviceName"
+                            [placeholder]="''" [allowFiltering]='true'
+                            (filtering)='onFilteringOtherList($event,lstCategoryService)'>
+                          </ejs-dropdownlist>
+                          <span class="e-float-line"></span>
+                          <span class="input-error"
+                            *ngIf="serviceForm.controls[i].get('serviceName').hasError('required') && !serviceForm.controls[i].get('serviceName').untouched">
+                            Trường Dịch vụ bắt buộc chọn
+                          </span>
+                        </div>
+                        <div class="col-sm-3">
+                          <ejs-numerictextbox id='priceService' format='N0' min='0' max="999999999"
+                            [showClearButton]="true" [(ngModel)]="service.garage_price" formControlName="priceService"
+                            (ngModelChange)="changePrice(service.garage_price,i)" [placeholder]="''">
+                          </ejs-numerictextbox>
+                        </div>
+                        <div class="col-sm-3">
+                          <ejs-checkbox formControlName="garage_price_is_contact" label="Giá liên hệ"
+                            [value]="service.garage_price_is_contact" [(ngModel)]="service.garage_price_is_contact"
+                            name="garage_price_is_contact" (ngModelChange)="changeContact(i)">
+                          </ejs-checkbox>
+                        </div>
+                        <div class="col-sm-1">
+                          <button [disabled]="model.lstServices.length == 1 || flagState =='view'"
+                            class="btn btn-outline btn-delete" (click)="removeService(service._id)">
+                            <i class="fa fa-trash-o" style="color: red;" style="font-size: 18px; color: red;"></i>
+                          </button>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="col-sm-1 service1">
+                  <div class="form-group">
+                    <div class="e-float-input">
+
+                    </div>
+                  </div>
+                </div> -->
+              </div>
+            </div>
+            <!-- Thêm mới giá trị -->
+            <div class="col-sm-12">
+              <div class="e-float-input add">
+                <button class="add-row btn-addservice" [disabled]="!model.garage_id" (click)="addValueEvaluate()">
+
+                  <i class="fa fa fa-plus-circle"></i>Thêm dịch vụ
+
+                </button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 text-center mt-3" *ngIf="flagState !='view'">
+                <button class="save__btn" (click)="saveData()">Cập nhật</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+<!-- CONFIRM DELETE MODAL-->
+<!-- <macca-confirm-modal id="confirm-delete-modal">
+  <div class="row full-width macca-modal-header">
+    Bạn có chắc chắn muốn xóa bản ghi?
+  </div>
+  <div class="row full-width macca-modal-footer text-center">
+    <button class="btn btn-primary" (click)="confirmDelete('ok')">
+      Đồng ý
+    </button>
+    <button class="btn btn-default" (click)="confirmDelete('cancel')">
+      Hủy
+    </button>
+  </div>
+</macca-confirm-modal> -->

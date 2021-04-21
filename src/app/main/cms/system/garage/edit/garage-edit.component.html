@@ -1,0 +1,165 @@
+<div class="app-main-content">
+  <div class="app-container">
+    <div class="app-toolbar">
+      <div class="app-breadcrum">
+        <a class="breadcrum-text" href="/cms/dashboard">
+          Trang chủ
+        </a>
+        <span class="breadcrum-icon"><i class="fa fa-caret-right"></i></span>
+        <a class="breadcrum-text">
+          Quản trị hệ thống
+        </a>
+        <span class="breadcrum-icon"><i class="fa fa-caret-right"></i></span>
+        <a class="breadcrum-text" href="/cms/system/garage">
+          Quản lý garage
+        </a>
+      </div>
+      <div class="app-title" *ngIf="flagState == 'new'">
+        Thêm mới garage
+      </div>
+      <div class="app-title" *ngIf="flagState == 'edit'">
+        Sửa garage
+      </div>
+      <div class="app-title" *ngIf="flagState == 'view'">
+        Xem garage
+      </div>
+    </div>
+    <div class="app-content ">
+      <div class="card card-content">
+        <div class="card-main-content">
+          <form name="editForm" [formGroup]="editForm" novalidate>
+            <div class="row">
+              <!-- Mã -->
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <input type="text" id="code" name="code" formControlName="code" [(ngModel)]="model.code" />
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text required" for="name">Mã garage</label>
+                    <span class="input-error" *ngIf="
+                                        editForm.get('code').hasError('required') &&
+                                        !editForm.get('code').untouched
+                                      ">
+                      Trường Mã garage bắt buộc nhập
+                    </span>
+                    <span class="input-error" *ngIf="
+                                        editForm.get('code').hasError('maxlength') &&
+                                        !editForm.get('code').untouched
+                                      ">
+                      Mã garage không được vượt quá 30 ký tự
+                    </span>
+                    <span class="input-error" *ngIf="
+                                        editForm.get('code').hasError('pattern') &&
+                                        !editForm.get('code').untouched
+                                      ">
+                      Mã garage không đúng định dạng
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <!-- Tên garage  -->
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <input type="text" id="name" name="name" formControlName="name" [(ngModel)]="model.name" />
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text required" for="name">Tên garage </label>
+                    <span class="input-error" *ngIf="
+                          editForm.get('name').hasError('required') &&
+                          !editForm.get('name').untouched
+                        ">
+                      Trường Tên garage bắt buộc nhập
+                    </span>
+                    <span class="input-error" *ngIf="
+                          editForm.get('name').hasError('maxlength') &&
+                          !editForm.get('name').untouched
+                        ">
+                      Tên garage không được vượt quá 255 ký tự
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <input type="text" id="phone" name="phone" formControlName="phone" [(ngModel)]="model.phone" (ngModelChange)="checkPhoneNumber('phone','editForm')"/>
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text required" for="phone">Số điện thoại</label>
+                    <span class="input-error" *ngIf="
+                          editForm.get('phone').hasError('required') &&
+                          !editForm.get('phone').untouched
+                        ">
+                      Trường Số điện thoại bắt buộc nhập
+                    </span>
+                    <span class="input-error" *ngIf="
+                          editForm.get('phone').hasError('incorrect') &&
+                          !editForm.get('phone').untouched
+                        ">
+                      Vui lòng nhập đúng Số điện thoại
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-2">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <input id="image" style="font-size: 13px; display: none" #images type="file" name="files"
+                      accept="image/x-png,image/gif,image/jpeg" (change)="uploadImage(images.files)" />
+                    <img *ngIf="model.image" src="{{model.image}}" class="img-response" style="width: 100%; height: auto;" />
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text required" for="doc_accept">Ảnh đại diện</label>
+                    <span *ngIf="model.image && model.image !='' && flagState !== 'view'">
+                      <i class="fa fa-remove" style="position: absolute; top: 3px; right: 5px; cursor: pointer; color: black;"
+                        (click)="removeImage()">
+                      </i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-1" style="padding-top: 30px; padding-left: 0">
+                <button class="choose-member-btn" type="button" [disabled]="flagState === 'view'"
+                  onclick="javascript:document.getElementById('image').click();">
+                  Chọn
+                </button>
+              </div>
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <textarea type="text" id="address" name="address" formControlName="address"
+                      [(ngModel)]="model.address"></textarea>
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text" for="address">Địa chỉ</label>
+                    <span class="input-error" *ngIf="
+                          editForm.get('address').hasError('maxlength') &&
+                          !editForm.get('address').untouched
+                        ">
+                      Địa chỉ không được vượt quá 2000 ký tự
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 text-center mt-3" *ngIf="flagState !='view'">
+                <button class="save__btn" (click)="saveData()">Cập nhật</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM BACK MODAL-->
+<macca-confirm-modal id="confirm-back-modal">
+  <div class="row full-width macca-modal-header">
+    Những thay đổi hiện tại sẽ bị mất. Bạn có thực sự muốn tiếp tục?
+  </div>
+  <div class="row full-width macca-modal-footer text-center">
+    <button class="btn btn-primary" (click)="confirmBack('ok')">Có</button>
+    <button class="btn btn-default" (click)="confirmBack('cancel')">
+      Không
+    </button>
+  </div>
+</macca-confirm-modal>

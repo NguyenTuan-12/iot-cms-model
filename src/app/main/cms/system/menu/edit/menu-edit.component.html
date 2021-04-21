@@ -1,0 +1,117 @@
+<div class="app-main-content">
+  <div class="app-container">
+    <div class="app-toolbar">
+      <div class="app-breadcrum">
+        <a class="breadcrum-text" href="/cms/dashboard">
+          Trang chủ
+        </a>
+        <span class="breadcrum-icon"><i class="fa fa-caret-right"></i></span>
+        <a class="breadcrum-text">
+          Quản trị hệ thống
+        </a>
+        <span class="breadcrum-icon"><i class="fa fa-caret-right"></i></span>
+        <a class="breadcrum-text" href="/cms/system/menu">
+          Quản lý Menu
+        </a>
+      </div>
+      <div class="app-title" *ngIf="flagState == 'new'">
+        Thêm mới Menu
+      </div>
+      <div class="app-title" *ngIf="flagState == 'edit'">
+        Sửa Menu
+      </div>
+      <div class="app-title" *ngIf="flagState == 'view'">
+        Xem Menu
+      </div>
+    </div>
+    <div class="app-content ">
+      <div class="card card-content">
+        <div class="card-main-content">
+          <form name="editForm" [formGroup]="editForm" novalidate>
+            <div class="row">
+              <!-- Mã -->
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <input type="text" id="title" name="title" formControlName="title" [(ngModel)]="model.title" />
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text required" for="title">Tiêu đề</label>
+                    <span class="input-error" *ngIf="
+                                        editForm.get('title').hasError('required') &&
+                                        !editForm.get('title').untouched
+                                      ">
+                      Trường Tiêu đề bắt buộc nhập
+                    </span>
+                    <span class="input-error" *ngIf="
+                                        editForm.get('title').hasError('maxlength') &&
+                                        !editForm.get('title').untouched
+                                      ">
+                      Tiêu đề không được vượt quá 100 ký tự
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <input type="text" id="link" name="link" formControlName="link" [(ngModel)]="model.link" (ngModelChange)="checkUrl('link')" />
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text required" for="link">Đường dẫn</label>
+                    <span class="input-error" *ngIf="
+                          editForm.get('link').hasError('required') &&
+                          !editForm.get('link').untouched
+                        ">
+                      Trường Đường dẫn bắt buộc nhập
+                    </span>
+                    <span class="input-error" *ngIf="
+                          editForm.get('link').hasError('maxlength') &&
+                          !editForm.get('link').untouched
+                        ">
+                        Đường dẫn không được vượt quá 255 ký tự
+                    </span>
+                    <span class="input-error" *ngIf="
+                          editForm.get('link').hasError('pattern') &&
+                          !editForm.get('link').untouched
+                        ">
+                        Vui lòng nhập đúng địa chỉ đường dẫn
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <ejs-dropdownlist id="parentId" formControlName="parentId" [(ngModel)]="model.parentId" [dataSource]="lstParents" [fields]="fields" [showClearButton]="true">
+                    </ejs-dropdownlist>
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text " for="parentId">Tiêu đề cha</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 text-center mt-3" *ngIf="flagState !='view'">
+                <button class="save__btn" (click)="saveData()">Cập nhật</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM BACK MODAL-->
+<macca-confirm-modal id="confirm-back-modal">
+  <div class="row full-width macca-modal-header">
+    Những thay đổi hiện tại sẽ bị mất. Bạn có thực sự muốn tiếp tục?
+  </div>
+  <div class="row full-width macca-modal-footer text-center">
+    <button class="btn btn-primary" (click)="confirmBack('ok')">Có</button>
+    <button class="btn btn-default" (click)="confirmBack('cancel')">
+      Không
+    </button>
+  </div>
+</macca-confirm-modal>

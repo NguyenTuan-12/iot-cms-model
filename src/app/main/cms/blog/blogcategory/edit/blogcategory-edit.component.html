@@ -1,0 +1,123 @@
+<div class="app-main-content">
+  <div class="app-container">
+    <div class="app-toolbar">
+      <div class="app-breadcrum">
+        <a class="breadcrum-text" href="/cms/dashboard">
+          Trang chủ
+        </a>
+        <span class="breadcrum-icon"><i class="fa fa-caret-right"></i></span>
+        <a class="breadcrum-text">
+          Quản lý tin tức
+        </a>
+        <span class="breadcrum-icon"><i class="fa fa-caret-right"></i></span>
+        <a class="breadcrum-text" href="/cms/blog/blogcategory">
+          Quản lý nhóm tin tức
+        </a>
+      </div>
+      <div class="app-title" *ngIf="flagState == 'new'">
+        Thêm mới nhóm tin tức
+      </div>
+      <div class="app-title" *ngIf="flagState == 'edit'">
+        Sửa nhóm tin tức
+      </div>
+      <div class="app-title" *ngIf="flagState == 'view'">
+        Xem nhóm tin tức
+      </div>
+    </div>
+    <div class="app-content ">
+      <div class="card card-content">
+        <div class="card-main-content">
+          <form name="editForm" [formGroup]="editForm" novalidate>
+            <div class="row">
+              <!-- Mã -->
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <input type="text" id="code" name="code" formControlName="code" [(ngModel)]="model.code" />
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text required" for="name">Mã nhóm</label>
+                    <span class="input-error" *ngIf="
+                                        editForm.get('code').hasError('required') &&
+                                        !editForm.get('code').untouched
+                                      ">
+                      Trường Mã nhóm bắt buộc nhập
+                    </span>
+                    <span class="input-error" *ngIf="
+                                        editForm.get('code').hasError('maxlength') &&
+                                        !editForm.get('code').untouched
+                                      ">
+                      Mã nhóm không được vượt quá 30 ký tự
+                    </span>
+                    <span class="input-error" *ngIf="
+                                        editForm.get('code').hasError('pattern') &&
+                                        !editForm.get('code').untouched
+                                      ">
+                      Mã nhóm không đúng định dạng
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <!-- Họ tên -->
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <input type="text" id="name" name="name" formControlName="name" [(ngModel)]="model.name" />
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text required" for="name">Tên nhóm tin tức</label>
+                    <span class="input-error" *ngIf="
+                          editForm.get('name').hasError('required') &&
+                          !editForm.get('name').untouched
+                        ">
+                      Trường Tên nhóm tin tức bắt buộc nhập
+                    </span>
+                    <span class="input-error" *ngIf="
+                          editForm.get('name').hasError('maxlength') &&
+                          !editForm.get('name').untouched
+                        ">
+                      Tên nhóm tin tức không được vượt quá 255 ký tự
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <!-- Ghi chú -->
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <input type="text" id="note" name="note" formControlName="note" [(ngModel)]="model.note" />
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text" for="note">Ghi chú</label>
+
+                    <span class="input-error" *ngIf="
+                          editForm.get('note').hasError('maxlength') &&
+                          !editForm.get('note').untouched
+                        ">
+                      Ghi chú không được vượt quá 2000 ký tự
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 text-center mt-3" *ngIf="flagState !='view'">
+                <button class="save__btn" (click)="saveData()">Cập nhật</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM BACK MODAL-->
+<macca-confirm-modal id="confirm-back-modal">
+  <div class="row full-width macca-modal-header">
+    Những thay đổi hiện tại sẽ bị mất. Bạn có thực sự muốn tiếp tục?
+  </div>
+  <div class="row full-width macca-modal-footer text-center">
+    <button class="btn btn-primary" (click)="confirmBack('ok')">Có</button>
+    <button class="btn btn-default" (click)="confirmBack('cancel')">
+      Không
+    </button>
+  </div>
+</macca-confirm-modal>

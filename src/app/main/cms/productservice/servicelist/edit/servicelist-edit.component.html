@@ -1,0 +1,211 @@
+<div class="app-main-content">
+  <div class="app-container">
+    <div class="app-toolbar">
+      <div class="app-breadcrum">
+        <a class="breadcrum-text" href="/cms/dashboard"> Trang chủ </a>
+        <span class="breadcrum-icon"><i class="fa fa-caret-right"></i></span>
+        <a class="breadcrum-text"> Quản lý sản phẩm, dịch vụ </a>
+        <span class="breadcrum-icon"><i class="fa fa-caret-right"></i></span>
+        <a class="breadcrum-text" href="/cms/productservice/servicelist">
+          Quản lý dịch vụ
+        </a>
+      </div>
+      <div class="app-title" *ngIf="flagState == 'new'">Thêm mới dịch vụ</div>
+      <div class="app-title" *ngIf="flagState == 'edit'">Sửa dịch vụ</div>
+      <div class="app-title" *ngIf="flagState == 'view'">Xem dịch vụ</div>
+    </div>
+    <div class="app-content">
+      <div class="card card-content">
+        <div class="card-main-content">
+          <form name="editForm" [formGroup]="editForm" novalidate>
+            <div class="row">
+              <!-- Mã -->
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <input type="text" id="code" name="code" formControlName="code" [(ngModel)]="model.code" />
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text required" for="name">Mã dịch vụ</label>
+                    <span class="input-error" *ngIf="
+                        editForm.get('code').hasError('required') &&
+                        !editForm.get('code').untouched
+                      ">
+                      Trường Mã dịch vụ bắt buộc nhập
+                    </span>
+                    <span class="input-error" *ngIf="
+                        editForm.get('code').hasError('maxlength') &&
+                        !editForm.get('code').untouched
+                      ">
+                      Mã dịch vụ không được vượt quá 30 ký tự
+                    </span>
+                    <span class="input-error" *ngIf="
+                        editForm.get('code').hasError('pattern') &&
+                        !editForm.get('code').untouched">
+                      Mã dịch vụ không đúng định dạng
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <!-- tên -->
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <input type="text" id="name" name="name" formControlName="name" [(ngModel)]="model.name" />
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text required" for="name">Tên dịch vụ</label>
+                    <span class="input-error" *ngIf="
+                        editForm.get('name').hasError('required') &&
+                        !editForm.get('name').untouched
+                      ">
+                      Trường Tên dịch vụ bắt buộc nhập
+                    </span>
+                    <span class="input-error" *ngIf="
+                        editForm.get('name').hasError('maxlength') &&
+                        !editForm.get('name').untouched
+                      ">
+                      Tên dịch vụ không được vượt quá 255 ký tự
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- Ghi chú -->
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <textarea type="text" id="description" name="description" formControlName="description"
+                      [(ngModel)]="model.description"></textarea>
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text" for="description">Mô tả</label>
+
+                    <span class="input-error" *ngIf="
+                        editForm.get('description').hasError('maxlength') &&
+                        !editForm.get('description').untouched
+                      ">
+                      Mô tả không được vượt quá 2000 ký tự
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <input #file3 type="file" id="uploadImg2" style="display: none" accept="image/*"
+                      data-max-size="5120" (change)="uploadImgContent(file3.files)" />
+                    <ejs-richtexteditor #content id="content" name="contentSpeaker" style="z-index: 1; opacity: 1;"
+                      formControlName="content" [(ngModel)]="model.content" [toolbarSettings]="tools"
+                      [quickToolbarSettings]="quickTools" (change)="changeContentFull($event)">
+                    </ejs-richtexteditor>
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text required" for="content">Nội dung</label>
+                    <span class="input-error" *ngIf="
+                        editForm.get('content').hasError('required') &&
+                        !editForm.get('content').untouched
+                      ">
+                      Trường Nội dung bắt buộc nhập
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <ejs-dropdownlist id="category" [dataSource]="lstCategory" [showClearButton]="true"
+                      [fields]="fields" [(ngModel)]="model.serviceCategoryId" formControlName="category"
+                      [placeholder]="" [allowFiltering]="true">
+                    </ejs-dropdownlist>
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text required" for="category">
+                      Nhóm dịch vụ cha</label>
+                    <span class="input-error" *ngIf="
+                        editForm.get('category').hasError('required') &&
+                        !editForm.get('category').untouched
+                      ">
+                      Trường Nhóm dịch vụ cha bắt buộc chọn
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <!-- Giá tiền -->
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <ejs-numerictextbox format='N0' min='0' max='9999999999' type="text" id="price"
+                      formControlName="price" [(ngModel)]="model.price">
+                    </ejs-numerictextbox>
+                    <label class="e-float-text" for="price">Giá tiền</label>
+                    <span class="e-float-line"></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <ejs-checkbox formControlName="sendSms" label="Giá liên hệ" value="model.price_is_contact"
+                      [(ngModel)]="model.price_is_contact" name="sendSms">
+                    </ejs-checkbox>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-5">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <input multiple id="image" style="font-size: 13px; display: none" #images type="file" name="files"
+                      accept="image/x-png,image/gif,image/jpeg" (change)="uploadImage(images.files)" />
+                    <!-- <img *ngIf="model.images" src="{{ model.images }}" class="img-response" style="height: 50px" />
+                     -->
+                    <angular-image-slider #slider [autoRotate]="true" [autoRotateAfter]="100000"
+                      [autoRotateRight]="true">
+                    </angular-image-slider>
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text required" for="doc_accept">Ảnh</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-1" style="padding-top: 30px; padding-left: 0">
+                <button class="choose-member-btn" type="button" [disabled]="flagState === 'view'"
+                  onclick="javascript:document.getElementById('image').click();">
+                  Chọn
+                </button>
+              </div>
+              <div class="col-sm-12 slide-image">
+
+              </div>
+
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="e-float-input" style="margin-top: 20px !important;">
+                    <ejs-checkbox formControlName="display" label="Hiển thị ở đặt lịch" value="model.price_is_contact"
+                      [(ngModel)]="model.is_show_booking" name="display">
+                    </ejs-checkbox>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="col-sm-12 text-center mt-3" *ngIf="flagState != 'view'">
+                <button class="save__btn" (click)="saveData()">Cập nhật</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM BACK MODAL-->
+<macca-confirm-modal id="confirm-back-modal">
+  <div class="row full-width macca-modal-header">
+    Những thay đổi hiện tại sẽ bị mất. Bạn có thực sự muốn tiếp tục?
+  </div>
+  <div class="row full-width macca-modal-footer text-center">
+    <button class="btn btn-primary" (click)="confirmBack('ok')">Có</button>
+    <button class="btn btn-default" (click)="confirmBack('cancel')">
+      Không
+    </button>
+  </div>
+</macca-confirm-modal>

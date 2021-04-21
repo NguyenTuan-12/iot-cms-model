@@ -1,0 +1,54 @@
+app-layout {
+    .toolbar {
+        position: fixed;
+        width: 100%;
+        background: white;
+        z-index: 3;
+        border-bottom: 1px solid #EAEBEC;
+    }
+
+    .sidebar {
+        position: fixed;
+        height: 100%;
+        width: 250px;
+        background: white;
+        border-right: 1px solid #EAEBEC;
+    }
+
+    .main {
+        .footer {
+            background: #f3f4f8;
+            height: 50px;
+            padding: 10px 0 0 250px;
+
+            p {
+                text-align: center;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 14px;
+                line-height: 16px
+            }
+        }
+    }
+
+    @media only screen and (min-width: 800px) { 
+        .toolbar {
+            height: 54px;
+        }
+
+        .sidebar {
+            padding-top: 54px;
+        }
+    }
+    
+    @media only screen and (min-width: 1600px) { 
+        .toolbar {
+            height: 75px;
+        }
+
+        .sidebar {
+            padding-top: 75px;
+        }
+    }
+
+}

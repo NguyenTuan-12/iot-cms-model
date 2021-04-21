@@ -1,0 +1,160 @@
+<div class="app-main-content">
+  <div class="app-container">
+    <div class="app-toolbar">
+      <div class="app-breadcrum">
+        <a class="breadcrum-text" href="/cms/dashboard">
+          Trang chủ
+        </a>
+        <span class="breadcrum-icon"><i class="fa fa-caret-right"></i></span>
+        <a class="breadcrum-text">
+          Quản trị hệ thống
+        </a>
+        <span class="breadcrum-icon"><i class="fa fa-caret-right"></i></span>
+        <a class="breadcrum-text" href="/cms/system/sysusergroup">
+          Quản lý link đường dẫn(Links)
+        </a>
+      </div>
+      <div class="app-title">
+        Quản lý link đường dẫn(Links)
+      </div>
+    </div>
+    <div class="app-content ">
+      <div class="card card-content">
+        <div class="card-main-content">
+          <form name="editForm" [formGroup]="editForm" novalidate>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <input type="text" id="facebook" name="facebook" formControlName="facebook"
+                      [(ngModel)]="model.facebook" />
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text" for="facebook">Facebook</label>
+                    <span class="input-error" *ngIf="
+                                        editForm.get('facebook').hasError('maxlength') &&
+                                        !editForm.get('facebook').untouched
+                                      ">
+                      Facebook không được vượt quá 100 ký tự
+                    </span>
+                    <span class="input-error" *ngIf="
+                                        editForm.get('facebook').hasError('pattern') &&
+                                        !editForm.get('facebook').untouched
+                                      ">
+                      Vui lòng nhập đúng địa chỉ Facebook
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <input type="text" id="instagram" name="instagram" formControlName="instagram"
+                      [(ngModel)]="model.instagram" (change)="checkUrl('instagram')" />
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text" for="instagram">Instagram</label>
+                    <span class="input-error" *ngIf="
+                                        editForm.get('instagram').hasError('maxlength') &&
+                                        !editForm.get('instagram').untouched
+                                      ">
+                      Instagram không được vượt quá 100 ký tự
+                    </span>
+                    <span class="input-error" *ngIf="
+                                        editForm.get('instagram').hasError('pattern') &&
+                                        !editForm.get('instagram').untouched
+                                      ">
+                      Vui lòng nhập đúng địa chỉ Instagram
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <input type="text" id="twitter" name="twitter" formControlName="twitter" [(ngModel)]="model.twitter"
+                      (change)="checkUrl('twitter')" />
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text" for="twitter">Twitter</label>
+                    <span class="input-error" *ngIf="
+                                        editForm.get('twitter').hasError('maxlength') &&
+                                        !editForm.get('twitter').untouched
+                                      ">
+                      Twitter không được vượt quá 100 ký tự
+                    </span>
+                    <span class="input-error" *ngIf="
+                                        editForm.get('twitter').hasError('pattern') &&
+                                        !editForm.get('twitter').untouched
+                                      ">
+                      Vui lòng nhập đúng địa chỉ Twitter
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <input type="text" id="youtube" name="youtube" formControlName="youtube" [(ngModel)]="model.youtube"
+                      (change)="checkUrl('youtube')" />
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text" for="youtube">Youtube</label>
+                    <span class="input-error" *ngIf="
+                                        editForm.get('youtube').hasError('maxlength') &&
+                                        !editForm.get('youtube').untouched
+                                      ">
+                      Youtube không được vượt quá 100 ký tự
+                    </span>
+                    <span class="input-error" *ngIf="
+                                        editForm.get('youtube').hasError('pattern') &&
+                                        !editForm.get('youtube').untouched
+                                      ">
+                      Vui lòng nhập đúng địa chỉ Youtube
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <input type="text" id="zalo" name="zalo" formControlName="zalo" [(ngModel)]="model.zalo"
+                      (change)="checkUrl('zalo')" />
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text" for="zalo">Linked In</label>
+                    <span class="input-error" *ngIf="
+                                        editForm.get('zalo').hasError('maxlength') &&
+                                        !editForm.get('zalo').untouched
+                                      ">
+                      Linked In không được vượt quá 100 ký tự
+                    </span>
+                    <span class="input-error" *ngIf="
+                                        editForm.get('zalo').hasError('pattern') &&
+                                        !editForm.get('zalo').untouched
+                                      ">
+                      Vui lòng nhập đúng địa chỉ Linked In
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 text-center mt-3" *ngIf="flagState !='view'">
+                <button class="save__btn" (click)="saveData()">Cập nhật</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM BACK MODAL-->
+<macca-confirm-modal id="confirm-back-modal">
+  <div class="row full-width macca-modal-header">
+    Những thay đổi hiện tại sẽ bị mất. Bạn có thực sự muốn tiếp tục?
+  </div>
+  <div class="row full-width macca-modal-footer text-center">
+    <button class="btn btn-primary" (click)="confirmBack('ok')">Có</button>
+    <button class="btn btn-default" (click)="confirmBack('cancel')">
+      Không
+    </button>
+  </div>
+</macca-confirm-modal>

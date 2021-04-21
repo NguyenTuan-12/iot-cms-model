@@ -1,0 +1,238 @@
+<div class="app-main-content">
+  <div class="app-container">
+    <div class="app-toolbar">
+      <div class="app-breadcrum">
+        <a class="breadcrum-text" href="/cms/dashboard">
+          Trang chủ
+        </a>
+        <span class="breadcrum-icon"><i class="fa fa-caret-right"></i></span>
+        <a class="breadcrum-text">
+          Quản trị hệ thống
+        </a>
+        <span class="breadcrum-icon"><i class="fa fa-caret-right"></i></span>
+        <a class="breadcrum-text" href="/cms/system/sysuser">
+          Quản lý tài khoản
+        </a>
+      </div>
+      <div class="app-title" *ngIf="flagState == 'new'">
+        Thêm mới tài khoản
+      </div>
+      <div class="app-title" *ngIf="flagState == 'edit'">
+        Sửa tài khoản
+      </div>
+      <div class="app-title" *ngIf="flagState == 'view'">
+        Xem tài khoản
+      </div>
+    </div>
+    <div class="app-content ">
+      <div class="card card-content">
+        <div class="card-main-content">
+          <form name="editForm" [formGroup]="editForm" novalidate autocomplete="off">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <input type="text" id="username" name="username" formControlName="username"
+                      [(ngModel)]="model.username" />
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text required" for="username">Tên đăng nhập</label>
+                    <span class="input-error" *ngIf="
+                          editForm.get('username').hasError('required') &&
+                          !editForm.get('username').untouched
+                        ">
+                      Trường Tên đăng nhập bắt buộc nhập
+                    </span>
+                    <span class="input-error" *ngIf="
+                          editForm.get('username').hasError('maxlength') &&
+                          !editForm.get('username').untouched
+                        ">
+                      Tên đăng nhập không được vượt quá 30 ký tự
+                    </span>
+                    <span class="input-error" *ngIf="
+                    editForm.get('username').hasError('minlength') &&
+                    !editForm.get('username').untouched
+                  ">
+                      Tên đăng nhập chứa ít nhất 4 ký tự
+                    </span>
+                    <span class="input-error" *ngIf="
+                          editForm.get('username').hasError('pattern') &&
+                          !editForm.get('username').untouched
+                        ">
+                      Tên đăng nhập không đúng định dạng
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <input type="text" id="fullname" name="fullname" formControlName="fullname"
+                      [(ngModel)]="model.fullname" />
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text required" for="fullname">Họ và tên</label>
+                    <span class="input-error" *ngIf="
+                          editForm.get('fullname').hasError('required') &&
+                          !editForm.get('fullname').untouched
+                        ">
+                      Trường Họ tên bắt buộc nhập
+                    </span>
+                    <span class="input-error" *ngIf="
+                          editForm.get('fullname').hasError('maxlength') &&
+                          !editForm.get('fullname').untouched
+                        ">
+                      Họ tên không được vượt quá 255 ký tự
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6" *ngIf="flagState === 'new'">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <input type="password" id="password" name="password" formControlName="password"
+                      [(ngModel)]="model.password" />
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text required" for="password">Mật khẩu</label>
+                    <span class="input-error" *ngIf="
+                          editForm.get('password').hasError('required') &&
+                          !editForm.get('password').untouched
+                        ">
+                      Trường Mật khẩu bắt buộc nhập
+                    </span>
+                    <span class="input-error" *ngIf="
+                          editForm.get('password').hasError('maxlength') &&
+                          !editForm.get('password').untouched
+                        ">
+                      Mật khẩu không được vượt quá 20 ký tự
+                    </span>
+                    <span class="input-error" *ngIf="
+                          editForm.get('password').hasError('minlength') &&
+                          !editForm.get('password').untouched
+                        ">
+                      Vui lòng nhập mật khẩu từ 8 ký tự trở lên
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6" *ngIf="flagState === 'new'">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <input type="password" id="confirm_password" name="confirm_password"
+                      formControlName="confirm_password" [(ngModel)]="model.confirm_password"
+                      (blur)="checkPassword()" />
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text required" for="confirm_password">Nhập lại mật khẩu</label>
+                    <span class="input-error" *ngIf="
+                          editForm.get('confirm_password').hasError('required') &&
+                          !editForm.get('confirm_password').untouched
+                        ">
+                      Trường Nhập lại mật khẩu bắt buộc nhập
+                    </span>
+                    <span class="input-error" *ngIf="
+                          editForm.get('confirm_password').hasError('diffPW') &&
+                          !editForm.get('confirm_password').untouched
+                        ">
+                      Mật khẩu không khớp
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <ejs-dropdownlist id="user_type" formControlName="user_type" [(ngModel)]="model.user_type"
+                      [dataSource]="lstUserGroups" [fields]="fields" [showClearButton]="true"
+                      (filtering)="onFiltering($event,lstUserGroups)" [allowFiltering]="true">
+                    </ejs-dropdownlist>
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text required" for="user_type">Nhóm tài khoản</label>
+                    <span class="input-error" *ngIf="
+                          editForm.get('user_type').hasError('required') &&
+                          !editForm.get('user_type').untouched
+                        ">
+                      Nhóm tài khoản chưa được chọn!
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <input type="text" id="email" name="email" formControlName="email" [(ngModel)]="model.email" />
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text" for="email">Email</label>
+                    <span class="input-error" *ngIf="
+                          editForm.get('email').hasError('email') &&
+                          !editForm.get('email').untouched
+                        ">
+                      Vui lòng nhập đúng địa chỉ Email
+                    </span>
+                    <span class="input-error" *ngIf="
+                          editForm.get('email').hasError('maxlength') &&
+                          !editForm.get('email').untouched
+                        ">
+                      Email không được vượt quá 255 ký tự
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <input type="text" id="mobile" name="mobile" formControlName="mobile" [(ngModel)]="model.mobile"
+                      maxlength="10" (ngModelChange)="
+                    checkPhoneNumber('mobile', 'editForm')
+                  " />
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text" for="mobile">Số điện thoại</label>
+                    <span class="input-error" *ngIf="
+                                      editForm
+                                        .get('mobile')
+                                        .hasError('incorrect') &&
+                                      !editForm.get('mobile').untouched
+                                    ">
+                      Số điện thoại không đúng định dạng
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <textarea type="text" id="address" name="address" formControlName="address"
+                      [(ngModel)]="model.address"></textarea>
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text" for="address">Địa chỉ</label>
+                    <span class="input-error" *ngIf="
+                          editForm.get('address').hasError('maxlength') &&
+                          !editForm.get('address').untouched
+                        ">
+                      Địa chỉ không được vượt quá 2000 ký tự
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 text-center mt-3" *ngIf="flagState !='view'">
+                <button class="save__btn" (click)="saveData()">Cập nhật</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM BACK MODAL-->
+<macca-confirm-modal id="confirm-back-modal">
+  <div class="row full-width macca-modal-header">
+    Những thay đổi hiện tại sẽ bị mất. Bạn có thực sự muốn tiếp tục?
+  </div>
+  <div class="row full-width macca-modal-footer text-center">
+    <button class="btn btn-primary" (click)="confirmBack('ok')">Có</button>
+    <button class="btn btn-default" (click)="confirmBack('cancel')">
+      Không
+    </button>
+  </div>
+</macca-confirm-modal>

@@ -1,0 +1,274 @@
+app-toolbar {
+    .logo-image {
+        width: 250px;
+        border-right: 1px solid #EAEBEC;
+    }
+
+    .app-name {
+        word-wrap: break-word;
+        color: #fe5722;
+        font-size: 24px;
+        line-height: 24px;
+
+        span {
+            font-weight: normal;
+        }
+
+        b {
+            font-weight: bold !important;
+        }
+    }
+
+    .user-info {
+        text-align: right;
+        display: inline-block;
+        margin-right: 15px;
+
+        .user-item {
+            height: 35px;
+            padding: 8px 15px;
+            cursor: pointer;
+
+            i {
+                margin-right: 10px;
+            }
+        }
+
+        .user-item:hover {
+            background: #1470B3;
+            color: white;
+        }
+    }
+
+    .notification {
+        display: inline-block;
+        position: absolute;
+        right: 20px;
+        top: 0px;
+    }
+
+    @media only screen and (min-width: 1000px) and (max-width: 1250px) {
+        .app-logo {
+            width: 100px;
+            height: 44px;
+            margin-left: 78px;
+            margin-top: 5px;
+        }
+
+        .app-name {
+            width: 250px;
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .user-info {
+            font-style: normal;
+            font-weight: normal;
+            font-size: 12px;
+            line-height: 15px;
+            padding: 5px 0;
+
+            .user-avatar {
+                width: 28px;
+                height: 28px;
+                border-radius: 20px;
+                margin-right: 10px;
+            }
+
+            .user-name {
+                padding-right: 5px;
+            }
+        }
+
+        .notification {
+            padding: 13px;
+
+            i {
+                font-size: 14px;
+                cursor: pointer;
+            }
+
+            .noti-count {
+                position: absolute;
+                top: 10px;
+                left: 20px;
+                background: red;
+                color: white;
+                width: 15px;
+                height: 15px;
+                text-align: center;
+                border-radius: 10px;
+                font-size: 12px;
+            }
+        }
+    }
+
+    @media only screen and (min-width: 1250px) {
+        .app-logo {
+            width: 100px;
+            height: 35px;
+            margin-left: 78px;
+            margin-top: 5px;
+        }
+
+        .app-name {
+            width: 250px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .user-info {
+            font-style: normal;
+            font-weight: normal;
+            font-size: 12px;
+            line-height: 15px;
+            padding: 5px 0;
+
+            .user-avatar {
+                width: 28px;
+                height: 28px;
+                border-radius: 20px;
+                margin-right: 10px;
+            }
+
+            .user-name {
+                padding-right: 5px;
+            }
+        }
+
+        .notification {
+            padding: 13px;
+
+            i {
+                font-size: 14px;
+                cursor: pointer;
+            }
+
+            .noti-count {
+                position: absolute;
+                top: 10px;
+                left: 20px;
+                background: red;
+                color: white;
+                width: 15px;
+                height: 15px;
+                text-align: center;
+                border-radius: 10px;
+                font-size: 12px;
+            }
+        }
+    }
+
+    @media only screen and (min-width: 1600px) {
+        .app-logo {
+            width: 100px;
+            height: 44px;
+            margin-left: 78px;
+            margin-top: 5px;
+        }
+
+        .app-name {
+            width: 250px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .user-info {
+            font-style: normal;
+            font-weight: normal;
+            font-size: 12px;
+            line-height: 15px;
+            padding: 5px 0;
+
+            .user-avatar {
+                width: 28px;
+                height: 28px;
+                border-radius: 20px;
+                margin-right: 10px;
+            }
+
+            .user-name {
+                padding-right: 5px;
+            }
+        }
+
+        .notification {
+            padding: 13px;
+
+            i {
+                font-size: 14px;
+                cursor: pointer;
+            }
+
+            .noti-count {
+                position: absolute;
+                top: 10px;
+                left: 20px;
+                background: red;
+                color: white;
+                width: 15px;
+                height: 15px;
+                text-align: center;
+                border-radius: 10px;
+                font-size: 12px;
+            }
+        }
+    }
+
+    @media only screen and (min-width: 1920px) {
+        .app-logo {
+            width: 150px;
+            height: 50px;
+            margin-left: 42px;
+            margin-top: 10px;
+        }
+
+        .app-name {
+            width: 250px;
+            font-size: 30px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .user-info {
+            font-style: normal;
+            font-weight: normal;
+            font-size: 15px;
+            line-height: 18px;
+            padding: 10px 0;
+
+            .user-avatar {
+                width: 40px;
+                height: 40px;
+                border-radius: 20px;
+                margin-right: 10px;
+            }
+
+            .user-name {
+                padding-right: 5px;
+            }
+        }
+
+        .notification {
+            padding: 25px;
+
+            i {
+                font-size: 20px;
+                cursor: pointer;
+            }
+
+            .noti-count {
+                position: absolute;
+                top: 15px;
+                left: 35px;
+                background: red;
+                color: white;
+                width: 20px;
+                height: 20px;
+                text-align: center;
+                border-radius: 10px;
+            }
+        }
+    }
+
+}

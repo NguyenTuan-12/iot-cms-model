@@ -1,0 +1,44 @@
+<div id="login" fxLayout="column">
+    <div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+        <div id="login-form">
+            <div class="login-logo text-center">
+                <!-- <img src="/assets/images/logo.png"> -->
+            </div>
+            <form name="loginForm" [formGroup]="loginForm" novalidate>
+                <div class="form-group">
+                    <input type="text" id="username" name="username" formControlName="username" class="form-control"
+                        [(ngModel)]="model.username" placeholder="Tên đăng nhập" (keypress)="enterSignIn($event)" maxlength="150">
+                    <span class="input-error"
+                        *ngIf="loginForm.get('username').hasError('required') && !loginForm.get('username').untouched">
+                        Tên đăng nhập không được bỏ trống!
+                    </span>
+                    <span class="input-error"
+                        *ngIf="loginForm.get('username').hasError('maxlength') && !loginForm.get('username').untouched">
+                        Tên đăng nhập không được vượt quá 150 ký tự
+                    </span>
+                </div>
+                <div class="form-group">
+                    <input id="password" name="password" class="form-control" [type]="showPassword ? 'text' : 'password'" formControlName="password"
+                        [(ngModel)]="model.password" placeholder="Mật khẩu" (keypress)="enterSignIn($event)" maxlength="50">
+                    <span class="show-pass" (click)="showPassword = !showPassword"><i class="fa" [class.fa-eye]="!showPassword" [class.fa-eye-slash]="showPassword"></i></span>
+                    <span class="input-error"
+                        *ngIf="loginForm.get('password').hasError('required') && !loginForm.get('password').untouched">
+                        Mật khẩu không được bỏ trống!
+                    </span>
+                    <span class="input-error"
+                        *ngIf="loginForm.get('password').hasError('maxlength') && !loginForm.get('password').untouched">
+                        Tên đăng nhập không được vượt quá 50 ký tự
+                    </span>
+                </div>
+                <div class="form-group text-center form-button">
+                    <button type="button" class="button signIn" (click)="signIn()">
+                        Đăng nhập
+                    </button>
+                </div>
+                <div class="col-md-12 text-center">
+                    <a class="forgot" [routerLink]="'/auth/forgot-password'">Quên mật khẩu?</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

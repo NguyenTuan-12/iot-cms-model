@@ -1,0 +1,25 @@
+cms-app-booking {
+  .form-control {
+    height: 32px;
+  }
+
+  #firstname {
+    height: 34px !important;
+  }
+
+}
+
+macca-confirm-modal#confirm-convert-modal {
+  .form-group input.ng-invalid.ng-touched {
+    border: 1px solid red;
+  }
+
+  .e-control.ng-invalid.ng-touched input {
+    border: none !important;
+    border-radius: 0 !important;
+    border-right: none !important;
+  }
+  .input-error {
+    position: absolute;
+  }
+}

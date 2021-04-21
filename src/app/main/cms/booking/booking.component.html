@@ -1,0 +1,182 @@
+<div class="app-main-content">
+  <div class="app-container">
+    <div class="app-toolbar">
+      <div class="app-breadcrum">
+        <a class="breadcrum-text" href="/cms/dashboard">
+          Trang chủ
+        </a>
+        <span class="breadcrum-icon"><i class="fa fa-caret-right"></i></span>
+        <a class="breadcrum-text" href="/cms/booking">
+          Quản lý đặt lịch
+        </a>
+      </div>
+      <div class="app-title">
+      </div>
+      <div class="card card-content">
+        <div class="row full-width">
+          <div class="app-title-design col-sm-6 p-n">
+            Quản lý đặt lịch
+          </div>
+        </div>
+
+        <div class="card card-content-design">
+          <div class="main-toolbar">
+            <div class="row">
+              <div class="col-sm-3 p-n custom-btn-toolbar">
+                <!-- Họ tên email -->
+                <div class="form-group full-width">
+                  <div class="e-float-input m-t-0">
+                    <input type="text" id="firstname" name="firstname" [(ngModel)]="search.text"
+                      [ngModelOptions]="{ standalone: true }" (keypress)="searchListEnter($event)"
+                      placeholder="Tìm kiếm theo Tên/Số điện thoại..." />
+                  </div>
+                </div>
+                <!-- Button Tìm kiếm -->
+              </div>
+              <div class="col-sm-2">
+                <div class="form-group">
+                  <div class="e-float-input m-t-0 bg" style="background: #f3f6ff 0% 0% no-repeat padding-box;">
+                    <button class="btn btn-search" style="width:100px !important" (click)="state.skip=0;getListData()">
+                      Tìm kiếm
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="app-content list">
+      <div class="card card-content">
+        <div class="card-main-content">
+          <div class="list-grid">
+            <ejs-grid #overviewgrid id="overviewgrid" [dataSource]="data | async" rowHeight="45" headerHeight="52"
+              [allowPaging]="true" [pageSettings]="configs.pageSettings" [enableHover]="true" [allowSorting]="false"
+              allowResizing="true" height="450" [height]="configs.height()" [locale]="configs.currentLang"
+              [allowSelection]="true" [showColumnChooser]="true" [selectionSettings]="configs.selectionSettingsNotCheck"
+              [allowFiltering]="false" [filterSettings]="configs.filterSettings" [editSettings]="configs.editSettings"
+              (dataStateChange)="dataStateChange($event)" [allowTextWrap]="true"
+              [textWrapSettings]="configs.wrapSettings">
+              <e-columns>
+                <e-column field="_id" [showInColumnChooser]="false" [visible]="false" headerText="ID" width="130"
+                  [isPrimaryKey]="true" [allowEditing]="false"></e-column>
+                <e-column headerTextAlign="Center" textAlign="Center" headerText="STT" [allowEditing]="false"
+                  width="80">
+                  <ng-template #template let-data>
+                    <span>{{ formatStt(data.index) }}</span>
+                  </ng-template>
+                </e-column>
+                <e-column field="bookingCode" textAlign="Left" headerTextAlign="Center" headerText="Mã đặt lịch"
+                  width="110">
+                </e-column>
+                <e-column field="customerName" textAlign="Left" headerTextAlign="Center" headerText="Họ tên KH"
+                  width="130">
+                </e-column>
+                <e-column field="customerPhone" textAlign="Left" headerTextAlign="Center" headerText="Số điện thoại KH"
+                  width="130">
+                </e-column>
+                <e-column field="customerEmail" textAlign="Left" headerTextAlign="Center" headerText="Email"
+                  width="130">
+                </e-column>
+                <e-column field="garageId.name" textAlign="Left" headerTextAlign="Center" headerText="Garage đặt lịch"
+                  width="130">
+                </e-column>
+                <e-column field="dateBooking" textAlign="Left" headerTextAlign="Center" headerText="Ngày giờ đặt lịch"
+                  width="130">
+                  <ng-template #template let-data>
+                    {{data.dateBooking | date: 'dd/MM/yyyy HH:mm'}}
+                  </ng-template>
+                </e-column>
+                <e-column field="statusName" textAlign="Left" headerText="Trạng thái" headerTextAlign="Center"
+                  clipMode="EllipsisWithTooltip" width="110">
+                  <ng-template #template let-data>
+                    <div class="row-status full-width">
+                      <div *ngIf="data.status && data.status == 1">
+                        <span style="color: green">Đã đặt lịch</span>
+                      </div>
+                      <div *ngIf="data.status && data.status == 2">
+                        <span style="color: red">Hủy đặt lịch</span>
+                      </div>
+                      <div *ngIf="data.status && data.status == 3">
+                        <span style="color: orange">Đã liên hệ</span>
+                      </div>
+                      <div *ngIf="data.status && data.status == 4">
+                        <span style="color: blue">Chưa liên hệ</span>
+                      </div>
+                    </div>
+                  </ng-template>
+                </e-column>
+                <e-column field="tools" textAlign="Center" headerText="Công cụ" headerTextAlign="Center" width="120px">
+                  <ng-template #template let-data>
+                    <div class="row">
+                      <div class="col-sm-12 custom-tools">
+                        <ejs-tooltip content="Xem chi tiết" target="#views">
+                          <span id="views" (click)="clickRecord(data, 'view')">
+                            <i class="fa fa-eye view"></i>
+                          </span>
+                        </ejs-tooltip>
+
+                        <ejs-tooltip content="Đổi trạng thái" target="#restore">
+                          <span id="restore" (click)="clickRecord(data, 'convert')">
+                            <i class="fa fa-refresh restore" aria-hidden="true"></i>
+                          </span>
+                        </ejs-tooltip>
+                      </div>
+                    </div>
+                  </ng-template>
+                </e-column>
+              </e-columns>
+            </ejs-grid>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM DELETE MODAL-->
+<macca-confirm-modal id="confirm-delete-modal">
+  <div class="row full-width macca-modal-header">
+    Bạn có chắc chắn muốn xóa bản ghi?
+  </div>
+  <div class="row full-width macca-modal-footer text-center">
+    <button class="btn btn-primary" (click)="confirmDelete('ok')">
+      Đồng ý
+    </button>
+    <button class="btn btn-default" (click)="confirmDelete('cancel')">
+      Hủy
+    </button>
+  </div>
+</macca-confirm-modal>
+<!-- CONFIRM DELETE MODAL-->
+<macca-confirm-modal id="confirm-convert-modal">
+  <form name="changeStatusForm" [formGroup]="changeStatusForm" novalidate autocomplete="off">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <div class="e-float-input">
+            <ejs-dropdownlist id="status" [dataSource]="lstStatus" formControlName="status"
+              (filtering)="onFiltering($event, lstStatus)" [fields]="fields" [(ngModel)]="search.status"
+              [placeholder]="''" [showClearButton]="true" [allowFiltering]="true">
+            </ejs-dropdownlist>
+            <span class="e-float-line"></span>
+            <label class="e-float-text required" for="status">Trạng thái</label>
+            <span class="input-error"
+              *ngIf="changeStatusForm.get('status').hasError('required') && !changeStatusForm.get('status').untouched">
+              Trường Trạng thái bắt buộc chọn
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="row full-width macca-modal-footer text-center">
+    <button class="btn btn-primary" (click)="confirmConvert('ok')">
+      Đồng ý
+    </button>
+    <button class="btn btn-default" (click)="confirmConvert('cancel')">
+      Hủy
+    </button>
+  </div>
+</macca-confirm-modal>

@@ -1,0 +1,186 @@
+<div class="app-main-content">
+  <div class="app-container">
+    <div class="app-toolbar">
+      <div class="app-breadcrum">
+        <a class="breadcrum-text" href="/cms/dashboard">
+          Trang chủ
+        </a>
+        <span class="breadcrum-icon"><i class="fa fa-caret-right"></i></span>
+        <a class="breadcrum-text">
+          Quản lý tin tức
+        </a>
+        <span class="breadcrum-icon"><i class="fa fa-caret-right"></i></span>
+        <a class="breadcrum-text" href="/cms/blog/bloglist">
+          Quản lý danh sách tin tức
+        </a>
+      </div>
+      <div class="app-title" *ngIf="flagState == 'new'">
+        Thêm mới tin tức
+      </div>
+      <div class="app-title" *ngIf="flagState == 'edit'">
+        Sửa tin tức
+      </div>
+      <div class="app-title" *ngIf="flagState == 'view'">
+        Xem tin tức
+      </div>
+    </div>
+    <div class="app-content ">
+      <div class="card card-content">
+        <div class="card-main-content">
+          <form summary="editForm" [formGroup]="editForm" novalidate>
+            <div class="row">
+              <!-- Tiêu đề -->
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <input type="text" id="title" name="title" formControlName="title" [(ngModel)]="model.title" />
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text required" for="title">Tiêu đề</label>
+                    <span class="input-error" *ngIf="
+                                        editForm.get('title').hasError('required') &&
+                                        !editForm.get('title').untouched
+                                      ">
+                      Trường Tiêu đề bắt buộc nhập
+                    </span>
+                    <span class="input-error" *ngIf="
+                                        editForm.get('title').hasError('maxlength') &&
+                                        !editForm.get('title').untouched
+                                      ">
+                      Tiêu đề không được vượt quá 255 ký tự
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <!-- Nhóm tin tức cha -->
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <ejs-dropdownlist id="category" [dataSource]="lstCategory" [showClearButton]="true"
+                      [fields]="fields" [(ngModel)]="model.categoryId" formControlName="category" [placeholder]=""
+                      [allowFiltering]="true" (filtering)="onFilteringOtherList($event, lstCategory)">
+                    </ejs-dropdownlist>
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text required" for="category">Nhóm tin tức cha</label>
+                    <span class="input-error" *ngIf="
+                        editForm
+                          .get('category')
+                          .hasError('required') &&
+                        !editForm.get('category').untouched
+                      ">
+                      Trường Nhóm tin tức cha bắt buộc chọn
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <!-- Tác giả -->
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <ejs-dropdownlist id="author" [dataSource]="lstAuthor" [showClearButton]="true"
+                      [fields]="fieldAuthor" [(ngModel)]="model.author" formControlName="author" [placeholder]=""
+                      [allowFiltering]="true">
+                    </ejs-dropdownlist>
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text required" for="author">Tác giả</label>
+                    <span class="input-error" *ngIf="
+                        editForm
+                          .get('author')
+                          .hasError('required') &&
+                        !editForm.get('author').untouched
+                      ">
+                      Trường Tác giả bắt buộc chọn
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <!-- Nội dung tóm tắt -->
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <textarea type="text" id="summary" name="summary" formControlName="summary"
+                      [(ngModel)]="model.summary"></textarea>
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text required" for="summary">Tổng quan</label>
+                    <span class="input-error" *ngIf="
+                          editForm.get('summary').hasError('required') &&
+                          !editForm.get('summary').untouched
+                        ">
+                      Trường Tổng quan bắt buộc nhập
+                    </span>
+                    <span class="input-error" *ngIf="
+                          editForm.get('summary').hasError('maxlength') &&
+                          !editForm.get('summary').untouched
+                        ">
+                      Tổng quan không được vượt quá 255 ký tự
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <!-- Nội dung -->
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <input #file3 type="file" id="uploadImg2" style="display: none" accept="image/*"
+                    data-max-size="5120" (change)="uploadImgContent(file3.files)" />
+                  <ejs-richtexteditor #content id="content" name="contentSpeaker" style="z-index: 1; opacity:  1;"
+                    formControlName="content" [(ngModel)]="model.content" [toolbarSettings]="tools"
+                    [quickToolbarSettings]="quickTools" (change)="changeContentFull($event)">
+                  </ejs-richtexteditor>
+                  <span class="e-float-line"></span>
+                  <label class="e-float-text required" for="content">Nội dung</label>
+                  <span class="input-error" *ngIf="
+                      editForm.get('content').hasError('required') &&
+                      !editForm.get('content').untouched
+                    ">
+                    Trường Nội dung bắt buộc nhập
+                  </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-2">
+                <div class="form-group">
+                  <div class="e-float-input">
+                    <input id="avatar" style="font-size: 13px; display: none" #images type="file" name="files"
+                      accept="image/x-png,image/gif,image/jpeg" (change)="uploadImage(images.files)" />
+                    <img *ngIf="model.avatar" src="{{model.avatar}}" class="img-response" style="width: 100%; height: auto;" />
+                    <span class="e-float-line"></span>
+                    <label class="e-float-text required" for="doc_accept">Ảnh đại diện</label>
+                    <span *ngIf="model.avatar && model.avatar !='' && flagState !== 'view'">
+                      <i class="fa fa-remove" style="position: absolute; top: 3px; right: 5px; cursor: pointer; color: black;"
+                        (click)="removeImage()">
+                      </i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-1" style="padding-top: 30px; padding-left: 0">
+                <button class="choose-member-btn" type="button" [disabled]="flagState === 'view'"
+                  onclick="javascript:document.getElementById('avatar').click();">
+                  Chọn
+                </button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 text-center mt-3" *ngIf="flagState !='view'">
+                <button class="save__btn" (click)="saveData()">Cập nhật</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM BACK MODAL-->
+<macca-confirm-modal id="confirm-back-modal">
+  <div class="row full-width macca-modal-header">
+    Những thay đổi hiện tại sẽ bị mất. Bạn có thực sự muốn tiếp tục?
+  </div>
+  <div class="row full-width macca-modal-footer text-center">
+    <button class="btn btn-primary" (click)="confirmBack('ok')">Có</button>
+    <button class="btn btn-default" (click)="confirmBack('cancel')">
+      Không
+    </button>
+  </div>
+</macca-confirm-modal>

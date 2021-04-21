@@ -1,0 +1,24 @@
+cms-app-amount {
+  .app-main-content .app-container .app-content {
+    padding-top: 170px !important;
+  }
+  .form-control {
+    height: 32px;
+  }
+  #fromdate_input,
+  #todate_input {
+    height: 32px !important;
+  }
+  .btn-search {
+    height: 34px !important;
+  }
+  @media only screen and(min-width:1600px) {
+    #fromdate_input,
+    #todate_input {
+      height: 34px !important;
+    }
+    .btn-search {
+      height: 36px !important;
+    }
+  }
+}

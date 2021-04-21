@@ -1,0 +1,161 @@
+<div class="app-main-content">
+  <div class="app-container">
+    <div class="dash-header">
+      <div class="row full-width">
+        <div class="col-sm-6 p-n">
+          <span><i class="fa fa-home"></i>Tổng Quan</span>
+        </div>
+      </div>
+    </div>
+    <div class="row full-width dash-content">
+      <div class="col-sm-12 p-n">
+        <div class="row full-width">
+          <div class="col-sm-4 p-n p-r-10 widget-1 widget-member">
+            <div class="card card-content">
+              <div class="card-main-content">
+                <div class="row full-width m-b-5">
+                  <div class="col-sm-12">
+                    <b>SỐ LƯỢNG BÀI VIẾT TRONG 30 NGÀY</b>
+                  </div>
+
+                </div>
+                <div class="model-total">
+                  <span class="model-now">{{
+                    totalBlog | number
+                  }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4 p-n p-r-10 widget-1 widget-council">
+            <div class="card card-content">
+              <div class="card-main-content">
+                <div class="row full-width m-b-5">
+                  <div class="col-sm-12">
+                    <b>SỐ LƯỢNG ĐẶT LỊCH</b>
+                  </div>
+                </div>
+                <div class="model-total">
+                  <span class="model-now">{{
+                    totalBooking | number
+                  }}</span>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4 p-n p-r-10 widget-1 widget-club">
+            <div class="card card-content">
+              <div class="card-main-content">
+                <div class="row full-width m-b-5">
+                  <div class="col-sm-12">
+                    <b>SỐ LIÊN HỆ TRONG VÒNG 30 NGÀY</b>
+                  </div>
+                </div>
+                <div class="model-total">
+                  <span class="model-now">{{
+                    totalContact | number
+                  }}</span>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row full-width widget-1 m-t-15">
+        <div class="col-sm-12 p-n  p-r-10">
+          <div class="card card-content">
+            <div class="card-main-content">
+              <div class="row full-width m-b-5">
+                <div class="col-sm-12">
+                  <b>DANH SÁCH ĐẶT LỊCH MỚI NHẤT</b>
+                </div>
+              </div>
+              <div class="list-grid">
+                <ejs-grid #overviewgrid id="overviewgrid" [dataSource]="lstBookings" rowHeight="45" headerHeight="52"
+                  height="250" [allowPaging]="false" [enableHover]="false" [allowSorting]="false" allowResizing="true">
+                  <e-columns>
+                    <e-column field="bookingCode" textAlign="Left" headerTextAlign="Center" headerText="Mã đặt lịch"
+                      width="130"></e-column>
+                    <e-column field="customerName" textAlign="Left" headerTextAlign="Center" headerText="Họ tên KH"
+                      width="130">
+                    </e-column>
+                    <e-column field="customerPhone" textAlign="Left" headerTextAlign="Center" headerText="Số điện thoại KH"
+                      width="130">
+                    </e-column>
+                    <e-column field="customerEmail" textAlign="Left" headerTextAlign="Center" headerText="Email"
+                      width="130">
+                    </e-column>
+                    <e-column field="garageId.name" textAlign="Left" headerTextAlign="Center" headerText="Garage đặt lịch"
+                      width="130">
+                    </e-column>
+                    <e-column field="dateBooking" textAlign="Left" headerTextAlign="Center" headerText="Ngày giờ đặt lịch"
+                      width="130">
+                      <ng-template #template let-data>
+                        {{data.dateBooking | date: 'dd/MM/yyyy HH:mm'}}
+                      </ng-template>
+                    </e-column>
+                    <e-column field="statusName" textAlign="Left" headerText="Trạng thái" headerTextAlign="Center"
+                        clipMode="EllipsisWithTooltip" width="110">
+                        <ng-template #template let-data>
+                          <div class="row-status full-width">
+                            <div *ngIf="data.status && data.status == 1">
+                              <span style="color: green">Đã đặt lịch</span>
+                            </div>
+                            <div *ngIf="data.status && data.status == 2">
+                              <span style="color: red">Hủy đặt lịch</span>
+                            </div>
+                            <div *ngIf="data.status && data.status == 3">
+                              <span style="color: orange">Đã liên hệ</span>
+                            </div>
+                            <div *ngIf="data.status && data.status == 4">
+                              <span style="color: blue">Chưa liên hệ</span>
+                            </div>
+                          </div>
+                        </ng-template>
+                    </e-column>
+                  </e-columns>
+                </ejs-grid>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row full-width widget-1 m-t-15">
+        <div class="col-sm-12 p-n  p-r-10">
+          <div class="card card-content">
+            <div class="card-main-content">
+              <div class="row full-width m-b-5">
+                <div class="col-sm-12">
+                  <b>DANH SÁCH LIÊN HỆ MỚI NHẤT</b>
+                </div>
+              </div>
+              <div class="list-grid">
+                <ejs-grid #overviewgrid id="overviewgrid" [dataSource]="lstContacts" rowHeight="45" headerHeight="52"
+                  height="250" [allowPaging]="false" [enableHover]="false" [allowSorting]="false" allowResizing="true">
+                  <e-columns>
+                    <e-column field="fullname" textAlign="Left" headerTextAlign="Center" headerText="Họ và tên" width="130">
+                    </e-column>
+                    <e-column field="phone" textAlign="Left" headerTextAlign="Center" headerText="Số điện thoại"
+                      width="130">
+                    </e-column>
+                    <e-column field="note" textAlign="Left" headerTextAlign="Center" headerText="Ghi chú" width="200">
+                    </e-column>
+                    <e-column field="dateCreated" textAlign="Left" headerTextAlign="Center" headerText="Ngày gửi thông tin"
+                      width="130">
+                      <ng-template #template let-data>
+                        {{data.dateCreated | date: 'dd/MM/yyyy HH:mm'}}
+                      </ng-template>
+                    </e-column>
+                  </e-columns>
+                </ejs-grid>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

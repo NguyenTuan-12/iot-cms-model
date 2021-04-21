@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="logo-image">
+    <img class="app-logo" src="/assets/images/logo.png" />
+  </div>
+  <div style="width: calc(100% - 250px)">
+    <div class="row full-width">
+      <div class="col-sm-12 text-right">
+        <div class="user-info">
+          <div class="dropdown" dropdown>
+            <a
+              dropdownToggle
+              class="pull-right text-center btn btn-setting dropdown-toggle"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-
+              expanded="true"
+              ><img class="user-avatar" src="/assets/images/avatar.png" /><span
+                class="user-name"
+                >{{ username }}</span
+              ></a
+            >
+            <ul
+              *dropdownMenu
+              class="dropdown-menu"
+              role="menu"
+              aria-labelledby="menu1"
+            >
+              <li role="presentation" class="user-item" (click)="showProfile()">
+                <a role="menuitem"
+                  ><i class="fa fa-user-circle"></i>Xem hồ sơ</a
+                >
+              </li>
+              <li role="presentation" class="user-item" (click)="signOut()">
+                <a role="menuitem"><i class="fa fa-sign-out"></i>Đăng xuất</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

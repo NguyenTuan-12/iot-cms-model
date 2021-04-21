@@ -1,0 +1,40 @@
+app-booking-edit {
+  .code {
+    p {
+      color: red;
+      font-weight: bold;
+    }
+  }
+
+  .bold {
+    font-weight: bold;
+    margin-right: 8px;
+    color: #333333;
+    font: normal normal bold 14px/30px Roboto;
+  }
+
+  .title {
+    font: normal normal bold 24px/30px Roboto !important;
+  }
+
+  .span-info {
+    color: #333333;
+    font: normal normal 14px/30px Roboto;
+  }
+
+  .back-btn {
+    padding: 1px 35px;
+    background: no-repeat padding-box #ff5722;
+    text-align: left;
+    font: normal normal bold 14px/30px Roboto !important;
+    letter-spacing: 0;
+    color: #fff;
+    border: none;
+    border-radius: 20px !important;
+    opacity: 1;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
